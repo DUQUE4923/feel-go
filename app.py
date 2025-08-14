@@ -1,15 +1,19 @@
 from flask import Flask, jsonify, render_template
 import random
+import os
 
-aplicacion = Flask(__name__, template_folder='templates')
+# Se inicializa la aplicación Flask
+# La variable se llama 'app' para que Render la reconozca.
+# Se indica a Flask que busque las plantillas en la carpeta 'templates'.
+app = Flask(__name__, template_folder='templates')
 
-# Esta es la ruta principal que sirve tu página home.html
-@aplicacion.route('/')
+# Esta es la ruta principal que sirve tu página de inicio (home.html)
+@app.route('/')
 def home():
     return render_template('home.html')
 
 # Esta es la ruta de tu API que entregará los datos a la página web
-@aplicacion.route('/api/datos')
+@app.route('/api/datos')
 def obtener_datos():
     # Simula los datos de un dispositivo ESP32
     distancia = random.uniform(20.0, 300.0)
@@ -28,5 +32,5 @@ def obtener_datos():
 
 # Configuración para que Flask se ejecute en Render
 if __name__ == '__main__':
-    from os import environ
-    aplicacion.run(host='0.0.0.0', port=environ.get('PORT'))
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
