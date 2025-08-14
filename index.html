@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión / Registrarse - Feel & Go</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="https://i.imgur.com/XWkZg6g.jpeg" alt="Logo de Feel & Go">
+            <h1>Bienvenido a Feel & Go</h1>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div id="login-container" class="form-container">
+            <h2>Iniciar sesión</h2>
+            <input type="text" id="login-username" placeholder="Nombre de usuario" autocomplete="username">
+            <input type="password" id="login-password" placeholder="Contraseña" autocomplete="current-password">
+            <button onclick="login()">Iniciar sesión</button>
+            <p>¿No tienes una cuenta? <a href="#" onclick="showRegisterForm()">Regístrate aquí</a></p>
+        </div>
+
+        <div id="register-container" class="form-container" style="display:none;">
+            <h2>Crear cuenta</h2>
+            <input type="text" id="register-username" placeholder="Nombre de usuario" autocomplete="username">
+            <input type="password" id="register-password" placeholder="Contraseña" autocomplete="new-password">
+            <button onclick="register()">Crear cuenta</button>
+            <p>¿Ya tienes una cuenta? <a href="#" onclick="showLoginForm()">Inicia sesión aquí</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Feel & Go</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
