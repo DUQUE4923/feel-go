@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template
 import random
 
-app = Flask(__name__)
+aplicacion = Flask(__name__, template_folder='templates')
 
 # Esta es la ruta principal que sirve tu página home.html
 @app.route('/')
@@ -29,4 +29,5 @@ def obtener_datos():
 # Configuración para que Flask se ejecute en Render
 if __name__ == '__main__':
     from os import environ
+
     app.run(host='0.0.0.0', port=environ.get('PORT'))
