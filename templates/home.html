@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido a tu página principal</h1>
+        <button id="logout-btn" onclick="logout()">Cerrar Sesión</button>
+    </header>
+
+    <div class="tab-container">
+        <div class="tab active-tab" onclick="showTab(0)">Dashboard</div>
+        <div class="tab" onclick="showTab(1)">Gráfica</div>
+        <div class="tab" onclick="showTab(2)">Historial</div>
+        <div class="tab" onclick="showTab(3)">Log de Eventos</div>
+        <div class="tab" onclick="showTab(4)">Ajustes</div>
+    </div>
+
+    <div id="tab-0" class="tab-content active-content">
+        <div class="dashboard-layout">
+            <div class="dashboard-column">
+                <div class="dashboard-item">
+                    <p>Estado: <span id="status" style="color: red;">Desconectado</span></p>
+                </div>
+                <div class="dashboard-item">
+                    <p>Distancia: <span id="distance" style="font-size: 24px; font-weight: bold;">— cm</span></p>
+                </div>
+                <div class="dashboard-item">
+                    <p>Batería (simulada): <span id="battery" style="font-size: 24px; font-weight: bold;">— %</span></p>
+                </div>
+                <div class="dashboard-item">
+                    <h3>Control de Conexión</h3>
+                    <input type="checkbox" id="sim-mode" checked>
+                    <label for="sim-mode">Modo Simulación</label><br>
+                    <button onclick="toggleConnection()">Aplicar Conexión</button>
+                </div>
+                <div class="dashboard-item">
+                    <button class="emergency-button" onclick="emergencyAction()">BOTÓN DE EMERGENCIA</button>
+                </div>
+            </div>
+            
+            <div class="dashboard-column">
+                <div class="dashboard-item" style="text-align: center;">
+                    <h3>Semáforo de Proximidad</h3>
+                    <div class="proximity-semaphore">
+                        <div id="red-light" class="semaphore-light"></div>
+                        <div id="yellow-light" class="semaphore-light"></div>
+                        <div id="green-light" class="semaphore-light"></div>
+                    </div>
+                </div>
+                <div class="dashboard-item">
+                    <h3>Datos GPS</h3>
+                    <div class="gps-data">
+                        <p>Hora: <span id="gps-time">--:--:--</span></p>
+                        <p>Latitud: <span id="gps-lat">N/A</span></p>
+                        <p>Longitud: <span id="gps-lng">N/A</span></p>
+                        <button id="map-button" onclick="viewOnMap()" disabled>Ver en Google Maps</button>
+                    </div>
+                </div>
+                <div class="dashboard-item">
+                    <button onclick="exportCsv()">Exportar Historial (CSV)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-1" class="tab-content">
+        <h2>Gráfica de Distancia vs. Tiempo</h2>
+        <canvas id="distanceChart"></canvas>
+    </div>
+
+    <div id="tab-2" class="tab-content">
+        <h2>Historial de Datos</h2>
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Distancia (cm)</th>
+                    <th>Batería (%)</th>
+                    <th>Latitud</th>
+                    <th>Longitud</th>
+                </tr>
+            </thead>
+            <tbody id="history-body">
+            </tbody>
+        </table>
+        <button onclick="exportCsv()" style="margin-top: 15px;">Exportar Historial (CSV)</button>
+    </div>
+
+    <div id="tab-3" class="tab-content">
+        <h2>Log de Eventos</h2>
+        <textarea id="log-output" readonly></textarea>
+    </div>
+
+    <div id="tab-4" class="tab-content">
+        <div class="settings-form">
+            <h3>Configuración de Umbrales</h3>
+            <label for="red-thresh">Umbral Rojo (< cm):</label>
+            <input type="number" id="red-thresh" value="50.0">
+            <label for="yellow-thresh">Umbral Amarillo (< cm):</label>
+            <input type="number" id="yellow-thresh" value="100.0">
+            <label for="batt-warn">Advertencia de Batería Baja (< %):</label>
+            <input type="number" id="batt-warn" value="20.0">
+            <button onclick="saveSettings()">Guardar Umbrales</button>
+
+            <h3>Configuración ESP32</h3>
+            <label for="esp32-ip">IP del ESP32:</label>
+            <input type="text" id="esp32-ip" value="192.168.100.17">
+            <button onclick="saveSettings()">Guardar y Aplicar IP</button>
+
+            <h3>Configuración de Correo Electrónico</h3>
+            <label for="smtp-server">Servidor SMTP:</label>
+            <input type="text" id="smtp-server" value="smtp.gmail.com">
+            <label for="smtp-port">Puerto SMTP:</label>
+            <input type="number" id="smtp-port" value="587">
+            <label for="email-user">Usuario (Email):</label>
+            <input type="email" id="email-user">
+            <label for="email-pass">Contraseña/App Pass:</label>
+            <input type="password" id="email-pass">
+            <label for="email-to">Enviar A (Email):</label>
+            <input type="email" id="email-to">
+            <button onclick="saveEmailSettings()">Guardar Credenciales de Email</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Mi Página Web</p>
+    </footer>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>
