@@ -2,14 +2,21 @@ from flask import Flask, jsonify, render_template
 import random
 import os
 
-# Se inicializa la aplicación Flask
-# La variable se llama 'app' para que Render la reconozca.
-# Se indica a Flask que busque las plantillas en la carpeta 'templates'.
+# Se inicializa la aplicación Flask con el nombre 'app'
+# Se indica a Flask que busque las plantillas HTML en la carpeta 'templates'.
 app = Flask(__name__, template_folder='templates')
 
-# Esta es la ruta principal que sirve tu página de inicio (home.html)
+# Esta es la ruta principal que sirve tu página de inicio de sesión (index.html)
+# Un usuario no autenticado siempre verá esta página primero.
 @app.route('/')
-def home():
+def login_page():
+    # Asegúrate de que el nombre de tu archivo de inicio de sesión sea 'index.html'
+    return render_template('index.html')
+
+# Esta ruta sirve la página principal para los usuarios ya autenticados
+@app.route('/home')
+def home_page():
+    # Asegúrate de que el nombre de tu archivo de página principal sea 'home.html'
     return render_template('home.html')
 
 # Esta es la ruta de tu API que entregará los datos a la página web
@@ -24,7 +31,7 @@ def obtener_datos():
     datos = {
         "distancia_cm": distancia,
         "bateria_porcentaje": bateria,
-        "hora": "12:34:56", # Esto debería ser la hora real del ESP32
+        "hora": "12:34:56",  # Esto debería ser la hora real del ESP32
         "latitud": f"{latitud:.6f}",
         "longitud": f"{longitud:.6f}"
     }
@@ -34,3 +41,4 @@ def obtener_datos():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+
