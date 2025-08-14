@@ -4,12 +4,12 @@ import random
 aplicacion = Flask(__name__, template_folder='templates')
 
 # Esta es la ruta principal que sirve tu página home.html
-@app.route('/')
+@aplicacion.route('/')
 def home():
     return render_template('home.html')
 
 # Esta es la ruta de tu API que entregará los datos a la página web
-@app.route('/api/datos')
+@aplicacion.route('/api/datos')
 def obtener_datos():
     # Simula los datos de un dispositivo ESP32
     distancia = random.uniform(20.0, 300.0)
@@ -29,5 +29,4 @@ def obtener_datos():
 # Configuración para que Flask se ejecute en Render
 if __name__ == '__main__':
     from os import environ
-
-    app.run(host='0.0.0.0', port=environ.get('PORT'))
+    aplicacion.run(host='0.0.0.0', port=environ.get('PORT'))
